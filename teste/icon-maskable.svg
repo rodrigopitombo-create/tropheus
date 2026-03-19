@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Maskable icon: safe zone is 80% center (410x410 at 51,51) -->
+  <rect width="512" height="512" fill="#0A5C68"/>
+  <circle cx="256" cy="200" r="65" fill="#F5821F"/>
+  <path d="M191 265 Q130 320 152 375 Q196 342 256 354 Q316 342 360 375 Q382 320 321 265 Z" fill="#F5821F"/>
+  <path d="M256 354 Q227 396 194 426 L256 410 L318 426 Q285 396 256 354 Z" fill="#0A5C68"/>
+  <circle cx="230" cy="187" r="11" fill="#0A5C68"/>
+  <path d="M150 452 L205 490 L370 398" stroke="#fff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

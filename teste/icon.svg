@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0A5C68"/>
+  <rect x="48" y="48" width="416" height="416" rx="72" fill="#0e7a8a"/>
+  <!-- Fish icon stylized as "T" for Tropheus -->
+  <circle cx="256" cy="170" r="60" fill="#F5821F"/>
+  <path d="M196 230 Q140 280 160 330 Q200 300 256 310 Q312 300 352 330 Q372 280 316 230 Z" fill="#F5821F"/>
+  <path d="M256 310 Q230 350 200 380 L256 365 L312 380 Q282 350 256 310 Z" fill="#0A5C68"/>
+  <circle cx="232" cy="158" r="10" fill="#0A5C68"/>
+  <!-- checkmark -->
+  <path d="M160 420 L210 460 L360 370" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

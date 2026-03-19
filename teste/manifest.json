@@ -1,0 +1,28 @@
+{
+  "name": "Checklist Visita Técnica – Tropheus",
+  "short_name": "Tropheus",
+  "description": "Checklist de visita técnica para a equipe Tropheus",
+  "start_url": "./TROPHEUS_Checklist_Visita_Tablet_6.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0A5C68",
+  "theme_color": "#0A5C68",
+  "lang": "pt-BR",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "prefer_related_applications": false
+}
