@@ -213,6 +213,7 @@ textarea{resize:vertical;min-height:68px}
     <div><div class="topbar-title">CHECKLIST DE VISITA TÉCNICA</div><div class="topbar-sub">Tropheus Engenharia · Serra/ES</div></div>
   </div>
   <div class="topbar-btns">
+    <button class="tbtn tbtn-white" id="btn-user-topbar" onclick="openUserModal()" style="gap:5px">👤 <span id="topbar-username">—</span></button>
     <button class="tbtn tbtn-white" onclick="UI.showHistory()">📋 Histórico</button>
     <button class="tbtn tbtn-white" onclick="UI.openCloud()">☁️ Nuvem</button>
     <button class="tbtn tbtn-pu" onclick="UI.openCU()">✅ ClickUp</button>
@@ -752,6 +753,19 @@ textarea{resize:vertical;min-height:68px}
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- MODAL: USUÁRIO -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="modal-user" class="modal on">
+  <div class="mbox" style="max-width:380px">
+    <div class="mhd mhd-teal"><h3>👤 Quem está preenchendo?</h3></div>
+    <div class="mbd">
+      <div style="font-size:13px;color:var(--gray);margin-bottom:16px">Selecione seu nome para identificar os checklists preenchidos por você.</div>
+      <div id="user-list" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════════════════════════════════════ -->
 <!-- MODAL: CLOUD SYNC -->
@@ -1300,6 +1314,7 @@ function resetForm() {
   ['alta','media','baixa'].forEach(l => { const c = document.getElementById('opp_' + l); if (c) c.className = 'oppc'; });
   document.querySelectorAll('.nsi').forEach(el => el.classList.remove('on'));
   const td = document.getElementById('visita_data'); if (td) td.value = new Date().toISOString().split('T')[0];
+  const ri = document.getElementById('resp_int'); if (ri && getUsuarioAtual()) ri.value = getUsuarioAtual();
   for (let i = 0; i < N_STEPS; i++) { document.getElementById('step' + i).classList.toggle('hidden', i !== 0); document.getElementById('sn' + i).classList.remove('done','active'); }
   document.getElementById('sn0').classList.add('active');
   CUR_STEP = 0; updateNav();
@@ -1564,10 +1579,69 @@ CUSTOM_FIELDS: ${JSON.stringify(cf)}` }],
 // INIT
 // ═══════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+  initUsuario();
   resetForm();
   renderHomeRecent();
   showScreen('home');
 });
+
+// ═══════════════════════════════════════════════════
+// SISTEMA DE USUÁRIOS
+// ═══════════════════════════════════════════════════
+const USUARIOS = [
+  'Rodrigo Pitombo',
+  'Usuário 2',
+  'Usuário 3',
+  'Usuário 4',
+  'Usuário 5'
+];
+
+function getUsuarioAtual() {
+  return localStorage.getItem('tropheus_usuario') || '';
+}
+
+function setUsuarioAtual(nome) {
+  localStorage.setItem('tropheus_usuario', nome);
+  document.getElementById('topbar-username').textContent = nome.split(' ')[0];
+}
+
+function openUserModal() {
+  renderUserList();
+  document.getElementById('modal-user').classList.add('on');
+}
+
+function renderUserList() {
+  const atual = getUsuarioAtual();
+  const container = document.getElementById('user-list');
+  container.innerHTML = USUARIOS.map(nome => `
+    <button onclick="selecionarUsuario('${nome}')" style="
+      display:flex;align-items:center;gap:12px;padding:12px 16px;
+      border:2px solid ${nome === atual ? 'var(--teal)' : 'var(--border)'};
+      border-radius:10px;background:${nome === atual ? 'var(--bg)' : '#fafcfd'};
+      cursor:pointer;font-size:13px;font-weight:${nome === atual ? '700' : '400'};
+      color:${nome === atual ? 'var(--teal)' : 'var(--dgray)'};text-align:left;width:100%">
+      <span style="font-size:22px">👤</span>
+      <span>${nome}</span>
+      ${nome === atual ? '<span style="margin-left:auto;font-size:11px;background:var(--teal);color:#fff;padding:2px 8px;border-radius:20px">Ativo</span>' : ''}
+    </button>
+  `).join('');
+}
+
+function selecionarUsuario(nome) {
+  setUsuarioAtual(nome);
+  document.getElementById('modal-user').classList.remove('on');
+  toast('Bem-vindo, ' + nome.split(' ')[0] + '!');
+}
+
+function initUsuario() {
+  const atual = getUsuarioAtual();
+  if (atual) {
+    document.getElementById('topbar-username').textContent = atual.split(' ')[0];
+    document.getElementById('modal-user').classList.remove('on');
+  } else {
+    renderUserList();
+  }
+}
 
 // ═══════════════════════════════════════════════════
 // SERVICE WORKER REGISTRATION
